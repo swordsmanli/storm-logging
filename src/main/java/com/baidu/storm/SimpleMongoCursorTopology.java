@@ -121,12 +121,12 @@ public class SimpleMongoCursorTopology {
 	
 	public static void main(String[] args) throws UnknownHostException {
 		// TODO Auto-generated method stub
-		final String mongoHost = "10.65.43.129";
-		final int mongoPort = 8270;
-		final String spoutDbName = "online";
-		final String spoutCollectionName = "imas";
-		final String boltDbName = "online";
-		final String boltCollectionName = "imas_timeout";
+		final String mongoHost = "";
+		final int mongoPort = ;
+		final String spoutDbName = "";
+		final String spoutCollectionName = "";
+		final String boltDbName = "";
+		final String boltCollectionName = "";
 		
 		//main thread to await all the other threads
 		CountDownLatch latch = new CountDownLatch(1);
@@ -156,7 +156,7 @@ public class SimpleMongoCursorTopology {
 			@Override
 			public void declareOutputFields(OutputFieldsDeclarer declarer) {
 				// TODO Auto-generated method stub
-				declarer.declare(new Fields("imasDocument"));
+				declarer.declare(new Fields("Document"));
 			}
 
 			@Override
@@ -192,7 +192,7 @@ public class SimpleMongoCursorTopology {
 				//do average imas timeout caculation
 				int innerCount = 0;
 				int imas_time = 0;
-				JSONObject json = (JSONObject) tuple.getValueByField("imasDocument");
+				JSONObject json = (JSONObject) tuple.getValueByField("Document");
 				if(json.containsKey("logtime") && json.containsKey("tt")) {
 					String logtime = json.get("logtime").toString();
 					String tt = json.get("tt").toString();
