@@ -1,4 +1,4 @@
-package com.logging.storm.bolt;
+package com.baidu.storm.kafka.bolt;
 
 import backtype.storm.tuple.Tuple;
 
@@ -11,8 +11,8 @@ import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import com.logging.storm.common.MongoToTupleFormatter;
-import com.logging.storm.common.UpdateQueryCreator;
+import com.baidu.storm.kafka.common.MongoToTupleFormatter;
+import com.baidu.storm.kafka.common.UpdateQueryCreator;
 
 
 public abstract class MongoBoltQueue implements Runnable, Serializable{
@@ -47,12 +47,12 @@ public abstract class MongoBoltQueue implements Runnable, Serializable{
 		//do get tuples from queue
 		while(running.get()) {
 			try {
-				//取出队列中的tuple
+				//get tuples from queue
 				Tuple tuple = queue.poll();
 				if(tuple != null) {
 					execute(tuple);
 				} else {
-					Thread.sleep(50);
+					Thread.sleep(10);
 				}
 			} catch (Exception e) {
 				if(running.get()) throw new RuntimeException(e);

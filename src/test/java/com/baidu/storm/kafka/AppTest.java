@@ -1,4 +1,4 @@
-package com.logging.storm;
+package com.baidu.storm.kafka;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

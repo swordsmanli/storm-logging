@@ -1,4 +1,4 @@
-package com.logging.storm.bolt;
+package com.baidu.storm.kafka.bolt;
 
 import java.net.UnknownHostException;
 import java.util.Map;
@@ -11,9 +11,16 @@ import backtype.storm.tuple.Tuple;
 
 import com.mongodb.*;
 
-import com.logging.storm.common.MongoToTupleFormatter;
+import com.baidu.storm.kafka.common.MongoToTupleFormatter;
 
 public abstract class MongoBoltBase extends BaseRichBolt{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	public MongoBoltBase(String url, String collectionName,
 			MongoToTupleFormatter formatter, WriteConcern writeConcern) {
 		this.url = url;

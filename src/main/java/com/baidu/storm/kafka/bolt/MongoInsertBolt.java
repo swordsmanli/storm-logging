@@ -1,10 +1,10 @@
-package com.logging.storm.bolt;
+package com.baidu.storm.kafka.bolt;
 
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.logging.storm.common.MongoToTupleFormatter;
+import com.baidu.storm.kafka.common.MongoToTupleFormatter;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.WriteConcern;
@@ -20,9 +20,11 @@ import backtype.storm.tuple.Tuple;
 */
 
 
-public class MongoInsertBolt extends MongoBoltBase{
+public class MongoInsertBolt extends MongoBoltBase {
 
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private LinkedBlockingQueue<Tuple> queue  = new LinkedBlockingQueue<Tuple>(10000);
 	private MongoBoltQueue task;
@@ -54,16 +56,16 @@ public class MongoInsertBolt extends MongoBoltBase{
 			OutputCollector collector) {
 		// TODO Auto-generated method stub
 		super.prepare(stormConf, context, collector);
-		//insert in a separate thread if you wanna, 异步插入数据库，defact blocking
+		//insert in a separate thread, inserting into mongodb async non blocking
 		if (this.inThread) {
 			this.task = new MongoBoltQueue(this.formatter, this.db, this.mongo, 
 					this.writeConcern, this.collection, this.queue) {
 
+						private static final long serialVersionUID = 1L;
+
 						@Override
 						public void execute(Tuple tuple) {
 							// TODO Auto-generated method stub
-							//add code to handle tuples or subclass override
-							//String logtime = tuple.getString(0);
 							DBObject object = new BasicDBObject();
 							this.collection.insert(this.formatter.mapTupleToDBObject(object, tuple)
 									, this.writeConcern);

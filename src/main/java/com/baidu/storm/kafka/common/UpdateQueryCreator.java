@@ -1,4 +1,4 @@
-package com.logging.storm.common;
+package com.baidu.storm.kafka.common;
 
 import backtype.storm.tuple.Tuple;
 
